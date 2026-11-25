@@ -43,7 +43,8 @@ export function initInvitation({ store, music, lightbox }) {
     guestMessages: document.getElementById('guestMessages'),
     giftDetails: document.getElementById('giftDetails'),
     footer: document.getElementById('mainFooter'),
-    footerNames: document.getElementById('footerNames')
+    footerNames: document.getElementById('footerNames'),
+    mobileTabBar: document.getElementById('mobileTabBar')
   };
 
   let countdownInterval = null;
@@ -62,10 +63,42 @@ export function initInvitation({ store, music, lightbox }) {
     ? 'Konfirmasi kehadiran Anda akan langsung tersimpan ke sistem panitia.'
     : 'Konfirmasi kehadiran tersimpan di browser perangkat ini dan dapat diekspor di Studio Undangan.';
 
+  function setActiveMobileTab(sectionId) {
+    if (!el.mobileTabBar) return;
+    el.mobileTabBar.querySelectorAll('.tab-item').forEach((tab) => {
+      tab.classList.toggle('active', tab.dataset.section === sectionId);
+    });
+  }
+
+  if (el.mobileTabBar && typeof IntersectionObserver !== 'undefined') {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible?.target?.id) {
+          setActiveMobileTab(visible.target.id);
+        }
+      },
+      { rootMargin: '-35% 0px -45% 0px', threshold: [0.1, 0.4] }
+    );
+    ['couple', 'event', 'gallery', 'rsvp', 'guestbook'].forEach((id) => {
+      const section = document.getElementById(id);
+      if (section) observer.observe(section);
+    });
+  }
+
+  el.mobileTabBar?.addEventListener('click', (e) => {
+    const tab = e.target.closest('.tab-item');
+    if (tab?.dataset.section) setActiveMobileTab(tab.dataset.section);
+  });
+
   function revealInvitation(scrollToMain = true) {
     el.nav.classList.remove('hidden');
     el.main.classList.remove('hidden');
     el.footer?.classList.remove('hidden');
+    el.mobileTabBar?.classList.remove('hidden');
+    document.body.classList.add('invitation-open');
     if (scrollToMain) {
       el.main.scrollIntoView({ behavior: 'smooth' });
     }
@@ -163,7 +196,8 @@ export function initInvitation({ store, music, lightbox }) {
     const akad = events[0];
     const resepsi = events.find((e) => e.id === 'resepsi') || akad;
 
-    document.body.className = `theme-${config.tema || 'classic'}`;
+    document.body.classList.remove('theme-classic', 'theme-floral', 'theme-heritage');
+    document.body.classList.add(`theme-${config.tema || 'classic'}`);
     document.documentElement.style.setProperty('--gold', safeHexColor(config.warnaUtama));
     document.title = `${wedding.namaPria} & ${wedding.namaWanita} — Digital Wedding Invitation`;
 

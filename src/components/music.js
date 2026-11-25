@@ -4,10 +4,17 @@ import { showToast } from '../core/utils.js';
 export function initMusicController() {
   const audio = document.getElementById('bgMusic');
   const toggleBtn = document.getElementById('musicToggle');
+  const mobileToggleBtn = document.getElementById('mobileMusicBtn');
   const volumeSlider = document.getElementById('volume');
   let currentUrl = '';
 
   audio.volume = Number(volumeSlider.value);
+
+  function setPlayingUi(playing) {
+    toggleBtn.textContent = playing ? 'Jeda Musik' : 'Putar Musik';
+    toggleBtn.setAttribute('aria-pressed', String(playing));
+    mobileToggleBtn?.setAttribute('aria-pressed', String(playing));
+  }
 
   function syncSource(url) {
     const clean = safeUrl(url);
@@ -16,8 +23,7 @@ export function initMusicController() {
     if (!clean) {
       audio.pause();
       audio.removeAttribute('src');
-      toggleBtn.textContent = 'Putar Musik';
-      toggleBtn.setAttribute('aria-pressed', 'false');
+      setPlayingUi(false);
       return;
     }
     audio.src = clean;
@@ -28,14 +34,13 @@ export function initMusicController() {
     if (!currentUrl || !audio.paused) return;
     try {
       await audio.play();
-      toggleBtn.textContent = 'Jeda Musik';
-      toggleBtn.setAttribute('aria-pressed', 'true');
+      setPlayingUi(true);
     } catch {
       // Browser blocked autoplay before sufficient user gesture
     }
   }
 
-  toggleBtn.addEventListener('click', async () => {
+  async function togglePlayback() {
     if (!currentUrl) {
       showToast('Atur URL musik di panel Kelola Undangan terlebih dahulu.');
       return;
@@ -43,17 +48,18 @@ export function initMusicController() {
     if (audio.paused) {
       try {
         await audio.play();
-        toggleBtn.textContent = 'Jeda Musik';
-        toggleBtn.setAttribute('aria-pressed', 'true');
+        setPlayingUi(true);
       } catch {
         showToast('Musik tidak dapat diputar. Periksa format atau URL audio.');
       }
     } else {
       audio.pause();
-      toggleBtn.textContent = 'Putar Musik';
-      toggleBtn.setAttribute('aria-pressed', 'false');
+      setPlayingUi(false);
     }
-  });
+  }
+
+  toggleBtn.addEventListener('click', togglePlayback);
+  mobileToggleBtn?.addEventListener('click', togglePlayback);
 
   volumeSlider.addEventListener('input', (e) => {
     audio.volume = Number(e.target.value);

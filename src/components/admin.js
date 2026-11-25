@@ -6,6 +6,7 @@ import { mergeWithDefaults, repository } from '../services/repository.js';
 export function initAdmin({ store }) {
   const panel = document.getElementById('adminPanel');
   const openBtn = document.getElementById('adminOpen');
+  const mobileOpenBtn = document.getElementById('mobileAdminBtn');
   const closeBtn = document.getElementById('adminClose');
   const $ = (id) => document.getElementById(id);
 
@@ -112,6 +113,7 @@ export function initAdmin({ store }) {
   }
 
   openBtn.addEventListener('click', open);
+  mobileOpenBtn?.addEventListener('click', open);
   closeBtn.addEventListener('click', close);
   panel.addEventListener('click', (e) => {
     if (e.target === panel) close();
@@ -124,7 +126,8 @@ export function initAdmin({ store }) {
     btn.addEventListener('click', () => {
       selectedTheme = btn.dataset.theme;
       document.querySelectorAll('.theme-chip').forEach((b) => b.classList.toggle('active', b === btn));
-      document.body.className = `theme-${selectedTheme}`;
+      document.body.classList.remove('theme-classic', 'theme-floral', 'theme-heritage');
+      document.body.classList.add(`theme-${selectedTheme}`);
     });
   });
 

@@ -72,10 +72,26 @@ test('createStore notifies subscribers and updates state', () => {
   assert.equal(observed, 2);
 });
 
+import { isStandaloneMode, isIOSDevice, getInstallActionMode } from '../pwa/install-state';
+
 test('mergeWithDefaults preserves defaults for missing fields', () => {
   const merged = mergeWithDefaults({ wedding: { namaPria: 'Raka' } });
   assert.equal(merged.wedding.namaPria, 'Raka');
   assert.equal(merged.wedding.namaWanita, 'Naira');
   assert.ok(merged.events.length >= 2);
   assert.ok(merged.gifts.length >= 2);
+});
+
+test('PWA install-state helpers detect standalone, iOS, and install action mode', () => {
+  assert.equal(isStandaloneMode({ matchMediaStandalone: true }), true);
+  assert.equal(isStandaloneMode({ navigatorStandalone: true }), true);
+  assert.equal(isStandaloneMode({}), false);
+
+  assert.equal(isIOSDevice('Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X)'), true);
+  assert.equal(isIOSDevice('Mozilla/5.0 (Linux; Android 14; Pixel 8)'), false);
+
+  assert.equal(getInstallActionMode({ isInstalled: true, hasDeferredPrompt: true }), 'hidden');
+  assert.equal(getInstallActionMode({ isInstalled: false, hasDeferredPrompt: true }), 'native-prompt');
+  assert.equal(getInstallActionMode({ isInstalled: false, hasDeferredPrompt: false, isIOS: true }), 'ios-guide');
+  assert.equal(getInstallActionMode({ isInstalled: false, hasDeferredPrompt: false, isIOS: false }), 'manual-guide');
 });
