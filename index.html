@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f8f5ef" id="metaThemeColor" />
+    <title>Arka &amp; Naira — Digital Wedding Invitation</title>
+    <meta
+      name="description"
+      content="Production-ready digital Indonesian wedding invitation with live countdown, interactive gallery lightbox, RSVP, guestbook, gift accounts, and invitation studio."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Arka &amp; Naira — Digital Wedding Invitation" />
+    <meta
+      property="og:description"
+      content="Dengan penuh rasa syukur, kami mengundang Anda untuk hadir dan memberikan doa restu pada hari bahagia kami."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="theme-classic">
+    <a href="#invitation" class="skip-link">Lewati ke konten undangan</a>
+
+    <!-- Cover -->
+    <header class="cover" id="cover">
+      <div class="cover-inner">
+        <div class="eyebrow" id="coverEyebrow">The Wedding Celebration</div>
+        <div class="ornament" aria-hidden="true">✦ ✧ ✦</div>
+        <p class="cover-subtitle">Kami mengundang Anda untuk merayakan hari bahagia kami</p>
+        <h1>
+          <span id="coverMan">Arka</span><br />
+          <span class="amp">&amp;</span><br />
+          <span id="coverWoman">Naira</span>
+        </h1>
+        <div class="date-line" id="coverDate">MINGGU, 20 JUNI 2027</div>
+        <p id="openingMessage" class="cover-opening"></p>
+        <p id="guestGreeting" class="guest-greeting hidden"></p>
+        <div class="cover-actions">
+          <button class="btn" id="openInvitation" type="button">Buka Undangan</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav hidden" id="mainNav" aria-label="Navigasi Undangan">
+      <div class="wrap nav-inner">
+        <a href="#couple" class="nav-brand" id="navBrand">Arka &amp; Naira</a>
+        <div class="nav-links">
+          <a href="#couple">Mempelai</a>
+          <a href="#event">Acara</a>
+          <a href="#story">Cerita</a>
+          <a href="#gallery">Galeri</a>
+          <a href="#location">Lokasi</a>
+          <a href="#rsvp">RSVP</a>
+          <a href="#guestbook">Ucapan</a>
+          <a href="#gift">Tanda Kasih</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="invitation" class="hidden" tabindex="-1">
+      <section class="section" id="couple">
+        <div class="wrap">
+          <div class="eyebrow">Assalamu’alaikum &amp; Salam Sejahtera</div>
+          <h2>Dengan Penuh Cinta</h2>
+          <p class="section-lead">
+            Merupakan kebahagiaan bagi kami apabila Anda berkenan hadir dan memberikan doa restu.
+          </p>
+          <div class="couple" id="coupleProfiles"></div>
+          <div class="ornament" aria-hidden="true">— ✧ —</div>
+          <p class="couple-desc" id="coupleDescription"></p>
+        </div>
+      </section>
+
+      <section class="section" id="event">
+        <div class="wrap">
+          <div class="eyebrow">Save the Date</div>
+          <h2>Hari Bahagia Kami</h2>
+          <div class="countdown" id="countdown" aria-live="polite" data-testid="countdown"></div>
+          <div class="event-grid" id="eventCards"></div>
+        </div>
+      </section>
+
+      <section class="section" id="story">
+        <div class="wrap">
+          <div class="eyebrow">Our Journey</div>
+          <h2>Kisah Kami</h2>
+          <div class="timeline" id="timeline"></div>
+        </div>
+      </section>
+
+      <section class="section" id="gallery">
+        <div class="wrap">
+          <div class="eyebrow">Moments to Remember</div>
+          <h2>Galeri Bahagia</h2>
+          <p class="section-lead">Klik foto untuk melihat detail dalam tampilan layar penuh.</p>
+          <div class="gallery" id="galleryGrid"></div>
+        </div>
+      </section>
+
+      <section class="section" id="location">
+        <div class="wrap">
+          <div class="eyebrow">With Joy, We Invite You</div>
+          <h2>Lokasi Acara</h2>
+          <div id="locationDetails" class="location-details"></div>
+          <div class="mapbox" id="mapBox"></div>
+          <a class="btn outline" id="mapsLink" target="_blank" rel="noopener noreferrer">
+            Buka Google Maps
+          </a>
+        </div>
+      </section>
+
+      <section class="section" id="rsvp">
+        <div class="wrap">
+          <div class="eyebrow">Kindly Respond</div>
+          <h2>Konfirmasi Kehadiran</h2>
+          <p class="section-lead" id="rsvpModeInfo"></p>
+          <form class="formbox panel" id="rsvpForm" novalidate>
+            <div class="field">
+              <label for="rsvpName">Nama Lengkap</label>
+              <input
+                id="rsvpName"
+                maxlength="60"
+                required
+                placeholder="Nama Anda"
+                autocomplete="name"
+              />
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="rsvpStatus">Status Kehadiran</label>
+                <select id="rsvpStatus">
+                  <option value="Hadir">Hadir</option>
+                  <option value="Tidak dapat hadir">Tidak dapat hadir</option>
+                  <option value="Masih tentatif">Masih tentatif</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="rsvpCount">Jumlah Tamu</label>
+                <input id="rsvpCount" type="number" min="1" max="10" value="1" required />
+              </div>
+            </div>
+            <button class="btn" type="submit" id="rsvpSubmit">Kirim Konfirmasi</button>
+          </form>
+          <div id="rsvpResult" class="guest-list" data-testid="rsvp-list"></div>
+        </div>
+      </section>
+
+      <section class="section" id="guestbook">
+        <div class="wrap">
+          <div class="eyebrow">A Note From You</div>
+          <h2>Buku Tamu Digital</h2>
+          <p class="section-lead">Tinggalkan ucapan dan doa terbaik untuk kedua mempelai.</p>
+          <form class="formbox panel" id="guestForm" novalidate>
+            <div class="field">
+              <label for="guestName">Nama</label>
+              <input id="guestName" maxlength="60" required placeholder="Nama Anda" />
+            </div>
+            <div class="field">
+              <label for="guestMessage">Ucapan &amp; Doa</label>
+              <textarea
+                id="guestMessage"
+                maxlength="500"
+                required
+                placeholder="Tuliskan pesan dan doa Anda..."
+              ></textarea>
+            </div>
+            <button class="btn" type="submit" id="guestSubmit">Kirim Ucapan</button>
+          </form>
+          <div id="guestMessages" class="guest-list" data-testid="guestbook-list"></div>
+        </div>
+      </section>
+
+      <section class="section" id="gift">
+        <div class="wrap">
+          <div class="eyebrow">A Little Kindness</div>
+          <h2>Tanda Kasih</h2>
+          <p class="section-lead">
+            Doa restu Anda merupakan hadiah terindah bagi kami. Namun apabila ingin memberikan tanda kasih, dapat melalui saluran berikut:
+          </p>
+          <div class="gift-grid" id="giftDetails"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer hidden" id="mainFooter">
+      <div class="wrap">
+        <div class="eyebrow">Thank You</div>
+        <h2 id="footerNames">Arka &amp; Naira</h2>
+        <p>Merupakan kehormatan bagi kami untuk berbagi hari istimewa ini bersama Anda.</p>
+        <div class="ornament" aria-hidden="true">✦</div>
+      </div>
+    </footer>
+
+    <!-- Music Floating Control -->
+    <div class="music-control" role="region" aria-label="Pemutar musik latar">
+      <button class="btn small outline" id="musicToggle" type="button" aria-pressed="false">
+        Putar Musik
+      </button>
+      <input id="volume" type="range" min="0" max="1" step="0.05" value="0.35" aria-label="Volume musik" />
+    </div>
+    <audio id="bgMusic" loop preload="none"></audio>
+
+    <!-- Admin Toggle -->
+    <button class="btn small admin-toggle" id="adminOpen" type="button">Kelola Undangan</button>
+
+    <!-- Admin Modal -->
+    <div
+      class="admin"
+      id="adminPanel"
+      aria-modal="true"
+      role="dialog"
+      aria-labelledby="adminTitle"
+      hidden
+    >
+      <div class="admin-shell">
+        <div class="admin-head">
+          <div>
+            <div class="eyebrow">Studio Undangan</div>
+            <h2 id="adminTitle">Pengaturan Undangan</h2>
+          </div>
+          <button class="btn outline" id="adminClose" type="button">Tutup</button>
+        </div>
+        <p class="admin-note">
+          Perubahan disimpan secara lokal di browser ini. Gunakan fitur <strong>Export JSON</strong> untuk mencadangkan atau menerapkan konfigurasi ke production.
+        </p>
+
+        <div class="admin-grid">
+          <div>
+            <h3>Mempelai &amp; Tampilan</h3>
+            <div class="field"><label for="aMan">Nama Pria</label><input id="aMan" /></div>
+            <div class="field"><label for="aManOrigin">Keterangan Pria</label><input id="aManOrigin" /></div>
+            <div class="field"><label for="aWoman">Nama Wanita</label><input id="aWoman" /></div>
+            <div class="field"><label for="aWomanOrigin">Keterangan Wanita</label><input id="aWomanOrigin" /></div>
+            <div class="field"><label for="aDescription">Deskripsi Pasangan</label><textarea id="aDescription"></textarea></div>
+            <div class="field"><label for="aOpening">Pesan Pembuka</label><textarea id="aOpening"></textarea></div>
+            <div class="field">
+              <label>Tema</label>
+              <div class="theme-row">
+                <button class="theme-chip" type="button" data-theme="classic">Classic Elegant</button>
+                <button class="theme-chip" type="button" data-theme="floral">Floral Minimalist</button>
+                <button class="theme-chip" type="button" data-theme="heritage">Traditional Heritage</button>
+              </div>
+            </div>
+            <div class="field"><label for="aColor">Warna Aksen Utama</label><input id="aColor" type="color" value="#88682e" /></div>
+            <div class="field"><label for="aCover">Foto Cover (URL/Path)</label><input id="aCover" placeholder="/src/assets/images/..." /></div>
+            <div class="field"><label for="aMusic">URL Musik Latar (MP3/OGG)</label><input id="aMusic" placeholder="./assets/music.mp3" /></div>
+          </div>
+
+          <div>
+            <h3>Foto Mempelai</h3>
+            <div class="field"><label for="aManPhoto">Foto Pria</label><input id="aManPhoto" /></div>
+            <div class="field"><label for="aWomanPhoto">Foto Wanita</label><input id="aWomanPhoto" /></div>
+
+            <h3>Acara Utama (Akad) &amp; Lokasi</h3>
+            <div class="field"><label for="aDate">Tanggal &amp; Jam Akad</label><input id="aDate" type="datetime-local" /></div>
+            <div class="field">
+              <label for="aZone">Zona Waktu</label>
+              <select id="aZone">
+                <option value="WIB">WIB</option>
+                <option value="WITA">WITA</option>
+                <option value="WIT">WIT</option>
+              </select>
+            </div>
+            <div class="field"><label for="aVenue">Nama Lokasi</label><input id="aVenue" /></div>
+            <div class="field"><label for="aAddress">Alamat Lengkap</label><textarea id="aAddress"></textarea></div>
+            <div class="field"><label for="aMaps">Link Google Maps</label><input id="aMaps" /></div>
+
+            <h3>Jadwal Resepsi</h3>
+            <div class="field"><label for="aReceptionDate">Tanggal &amp; Jam Mulai Resepsi</label><input id="aReceptionDate" type="datetime-local" /></div>
+            <div class="field"><label for="aReceptionTime">Teks Jam Resepsi</label><input id="aReceptionTime" placeholder="11.00–14.00 WIB" /></div>
+          </div>
+        </div>
+
+        <h3>Tanda Kasih / Rekening</h3>
+        <div id="giftEditor"></div>
+        <button class="btn small outline" id="addGift" type="button">+ Tambah Rekening</button>
+
+        <h3>Galeri Foto</h3>
+        <div id="galleryEditor"></div>
+        <button class="btn small outline" id="addPhoto" type="button">+ Tambah Foto</button>
+
+        <h3>Timeline Kisah</h3>
+        <div id="storyEditor"></div>
+        <button class="btn small outline" id="addStory" type="button">+ Tambah Momen</button>
+
+        <h3>Generator Link Undangan Tamu</h3>
+        <div class="panel share-box">
+          <div class="field">
+            <label for="shareGuestName">Nama Tamu Undangan</label>
+            <input id="shareGuestName" placeholder="Contoh: Budi Santoso &amp; Keluarga" />
+          </div>
+          <div class="share-output">
+            <input id="shareUrlOutput" readonly aria-label="Link undangan tamu" />
+            <button class="btn small" id="copyShareUrl" type="button">Salin Link</button>
+          </div>
+        </div>
+
+        <div class="admin-actions">
+          <button class="btn" id="saveConfig" type="button">Simpan &amp; Terapkan</button>
+          <button class="btn outline" id="exportJson" type="button">Export JSON</button>
+          <label class="btn outline file-btn" tabindex="0">
+            Import JSON
+            <input id="importJson" type="file" accept="application/json" hidden />
+          </label>
+          <button class="btn outline danger" id="resetDemo" type="button">Reset Default</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div
+      class="lightbox"
+      id="lightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Tampilan foto galeri"
+      hidden
+    >
+      <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Tutup foto">
+        ✕
+      </button>
+      <figure class="lightbox-figure">
+        <img id="lightboxImg" referrerpolicy="no-referrer" alt="" />
+        <figcaption id="lightboxCaption"></figcaption>
+      </figure>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

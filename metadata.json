@@ -1,0 +1,6 @@
+{
+  "name": "Arka & Naira — Digital Wedding Invitation",
+  "description": "Production-ready digital Indonesian wedding invitation with live countdown, interactive gallery lightbox, RSVP, guestbook, gift accounts, and invitation studio.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
